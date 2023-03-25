@@ -13,7 +13,7 @@
                             Add New
                         </button>
                         <!-- add new form -->
-                        <form class="offcanvas offcanvas-end" action="{{route('admin.new-category')}}" method="POST" tabindex="-1" id="add-new-category" aria-labelledby="add-new-categoryLabel">
+                        <form class="offcanvas offcanvas-end needs-validation" action="{{route('admin.new-category')}}" method="POST" tabindex="-1" id="add-new-category" aria-labelledby="add-new-categoryLabel" novalidate>
                             <div class="offcanvas-header">
                                 <h5 id="add-new-categoryLabel" class="offcanvas-title">Add New Category</h5>
                                 <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -126,7 +126,8 @@
     $("#save-category").form_submit({
         file: false,
         datatable: false,
-        form_id:"add-new-category",
+        form_id: "add-new-category",
+        title: 'Category'
     });
 </script>
 @endsection
