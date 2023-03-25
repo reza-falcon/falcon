@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Admins\Category\CategoryController;
+use App\Http\Controllers\Admins\DashboardController;
+use App\Http\Controllers\Clients\DashboardController as ClientsDashboardController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +28,38 @@ use Illuminate\Support\Facades\Route;
 
 // end shop
 Auth::routes();
+/*------------------------------------------
+
+--------------------------------------------
+
+All Normal Users Routes List
+
+--------------------------------------------
+
+--------------------------------------------*/
+
+Route::middleware(['auth', 'user-access:client'])->group(function () {
+
+    Route::get('/clients/dashboard/', [ClientsDashboardController::class, 'index'])->name('clients.dashboard');
+});
+
+
+
+/*------------------------------------------
+
+--------------------------------------------
+
+All Admin Routes List
+
+--------------------------------------------
+
+--------------------------------------------*/
+
+Route::middleware(['auth', 'user-access:admin'])->group(function () {
+    Route::get('/admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    // category management
+    Route::get('/admin/category/all-category', [CategoryController::class, 'index'])->name('admin.category');
+    Route::post('/admin/category/new-category/add', [CategoryController::class, 'store'])->name('admin.new-category');
+});
 Route::get('/', [\App\Http\Controllers\Shop\HomeController::class, 'index'])->name('shop.home');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

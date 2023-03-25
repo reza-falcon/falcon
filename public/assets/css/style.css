@@ -9,3 +9,39 @@ NOTE:
 ------
 PLACE HERE YOUR OWN SCSS CODES AND IF NEEDED, OVERRIDE THE STYLES FROM THE OTHER STYLESHEETS.
 WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BETTER LIKE THIS.  */
+table.dataTable {
+	width: 100% !important;
+	border-collapse: separate !important;
+	border-spacing: 2px;
+}
+
+.dark-layout table.dataTable td {
+	background-color: #343d55
+}
+
+
+
+@media only screen and (max-width: 1330px) {
+	.dark-layout table.dataTable td:first-child {
+		border-left: 4px solid var(--bs-primary) !important;
+	}
+	.dark-layout table.dataTable th:first-child {
+		border-left: 4px solid var(--bs-warning) !important;
+	}
+}
+
+@media only screen and (min-width: 1331px) {
+	.dark-layout table.dataTable td:nth-child(2) {
+		border-left: 4px solid var(--bs-primary) !important;
+	}
+	.dark-layout table.dataTable th:nth-child(2) {
+		border-left: 4px solid var(--bs-warning) !important;
+	}
+}
+
+@media only screen and (min-width: 768px) {
+	.dataTables_wrapper {
+		padding-right: 1.5rem !important;
+		padding-left: 1.5rem !important;
+	}
+}
