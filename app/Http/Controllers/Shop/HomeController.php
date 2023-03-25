@@ -10,6 +10,7 @@ class HomeController extends Controller
     //basic view
     public function index(Request $request)
     {
+        // return auth()->user()->type;
         return view('shop.home');
     }
 }
