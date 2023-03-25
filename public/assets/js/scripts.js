@@ -6,16 +6,28 @@
   ------
   PLACE HERE YOUR OWN JAVASCRIPT CODE IF NEEDED
   WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR JAVASCRIPT CODE PLEASE CONSIDER WRITING YOUR SCRIPT HERE.  */
+  function notify($status, $meessage, $title) {
+    var isRtl = $('html').attr('data-textdirection') === 'rtl';
+    toastr[$status]($meessage, $title, {
+      closeButton: true,
+      tapToDismiss: false,
+      progressBar: true,
+      hideDuration: 3000,
+      rtl: isRtl
+    });
+  }
+  // form submit by ajax
   $.fn.form_submit = function (options) {
     var settings = $.extend({
       file: false,
       datatable: false,
       url: false,
       method: 'POST',
-      form_id: 'form'
+      form_id: 'form',
+      title: 'Notification'
     }, options)
     let request_url = '';
-    let button_text = 'Submit'; 
+    let button_text = 'Submit';
     let $this = this;
     this.on('click', function () {
       button_text = $(this).text();
@@ -47,12 +59,36 @@
         dataType: 'json',
         data: form_data,
         success: function (data) {
+          if (data.status) {
+            notify('success', data.message, settings.title);
+          }
+          else {
+            notify('error', data.message, settings.title);
+          }
+          $("#" + settings.form_id).z_validation({
+            errors: data.errors,
+          });
           $this.html(button_text);
         }
       })
     });
   }
 
+  // validation 
+  $.fn.z_validation = function (options) {
+    var settings = $.extend({
+      errors: [],
+    }, options);
+    let $this = this;
+    // all input validation
+    let error_element = '<span class="error">This field is required.</span>';
+    this.find('input').each(function (index, obj) {
+      let field_name = $(obj).attr('name');
+      if (settings.errors.hasOwnProperty(field_name)) {
+        $("input[name='" + field_name + "']").after('<span class="error">' + settings.errors + '</span>');
+      }
+    })
+  }
 
 })(window);
 // 
