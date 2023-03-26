@@ -848,10 +848,11 @@
                     <!-- category manager -->
                     <li class="dropdown nav-item" data-menu="dropdown"><a class="dropdown-toggle nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown"><i data-feather="box"></i><span data-i18n="Misc">Category</span></a>
                         <ul class="dropdown-menu" data-bs-popper="none">
-                            <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item d-flex align-items-center dropdown-toggle" href="#" data-bs-toggle="dropdown" data-i18n="Menu Levels"><i data-feather="menu"></i><span data-i18n="Menu Levels">All
-                                        Categories</span></a>
+                            <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu">
+                                <a class="dropdown-item d-flex align-items-center dropdown-toggle" href="{{route('admin.category')}}" data-bs-toggle="dropdown" data-i18n="Menu Levels"><i data-feather="menu"></i><span data-i18n="Menu Levels">
+                                All Categories</span></a>
                                 <ul class="dropdown-menu" data-bs-popper="none">
-                                    <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="#" data-bs-toggle="" data-i18n="Second Level"><i data-feather="circle"></i><span data-i18n="Second Level">Category</span></a>
+                                    <li data-menu=""><a class="dropdown-item d-flex align-items-center" href="{{route('admin.category')}}" data-bs-toggle="" data-i18n="Second Level"><i data-feather="circle"></i><span data-i18n="Second Level">Category</span></a>
                                     </li>
                                     <li class="dropdown dropdown-submenu" data-menu="dropdown-submenu"><a class="dropdown-item d-flex align-items-center dropdown-toggle" href="#" data-bs-toggle="dropdown" data-i18n="Second Level"><i data-feather="circle"></i><span data-i18n="Second Level">Sub
                                                 Category</span></a>

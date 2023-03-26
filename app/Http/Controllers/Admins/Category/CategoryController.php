@@ -62,7 +62,8 @@ class CategoryController extends Controller
             $data[$i]['title'] = $value->title;
             $data[$i]['create_date'] = date('d M Y', strtotime($value->created_at));
             $data[$i]['status'] = $value->status;
-            $data[$i]['action'] = '<button class="btn btn-danger btn-sm">Delete</button>';
+            $data[$i]['action'] = '<button class="btn btn-danger btn-sm"><i data-feather="trash"></i>Delete</button>'
+            |'<button class="btn btn-success btn-sm"><i data-feather="edit"></i>Edit</button>';
             $i++;
         }
         // return Response::json($data);

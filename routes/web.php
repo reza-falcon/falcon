@@ -40,7 +40,7 @@ All Normal Users Routes List
 
 Route::middleware(['auth', 'user-access:client'])->group(function () {
 
-    Route::get('/clients/dashboard/', [ClientsDashboardController::class, 'index'])->name('clients.dashboard');
+    Route::get('/clients/dashboard/', [ClientsDashboardController::class, 'index'])->name('client.dashboard');
 });
 
 
