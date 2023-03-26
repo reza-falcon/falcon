@@ -37,6 +37,31 @@
                                 </button>
                             </div>
                         </form>
+                        <!-- edit form -->
+                        <form class="offcanvas offcanvas-end needs-validation" action="{{route('admin.edit-category')}}" method="POST" tabindex="-1" id="edit-category" aria-labelledby="edit-new-categoryLabel" novalidate>
+                            <div class="offcanvas-header">
+                                <h5 id="edit-categoryLabel" class="offcanvas-title">Edit Category</h5>
+                                <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body my-auto mx-0 flex-grow-0">
+                                <!--  -->
+                                <p class="text-center">
+                                    Lorem ipsum, or lipsum as it is sometimes known, is dummy text used in laying out print inibus Bonorum et Malorum for use in a type specimen book.
+                                </p>
+                                <div class="form-group mb-3">
+                                    <label for="category" class="form-label">Categoryo</label>
+                                    <input type="text" name="category" class="form-input form-control" id="edit-category-field" placeholder="Cothings">
+                                </div>
+                                <!-- loader -->
+                                <div id="edit-loader" data-loader="<span class='spinner-grow spinner-grow-sm' role='status' aria-hidden='true'></span><span class='visually-hidden'>Loading...</span>"></div>
+                                <!-- button submit -->
+                                <button type="button" data-form="edit-category" data-loader="edit-loader" class="btn btn-primary mb-1 d-grid w-100" id="btn-edit-category">Save Change</button>
+                                <!-- button cancel -->
+                                <button type="button" class="btn btn-outline-secondary d-grid w-100" data-bs-dismiss="offcanvas">
+                                    Cancel
+                                </button>
+                            </div>
+                        </form>
                     </div>
                     <!--Search Form -->
                     <div class="card-body mt-2">
@@ -139,5 +164,23 @@
         title: 'Category',
         datatable: category_table,
     });
+    // edit category/form
+    $("#btn-edit-category").form_submit({
+        file: false,
+        datatable: false,
+        form_id: "edit-category",
+        title: 'Category Update',
+        datatable: category_table,
+        reset:false,
+    });
+    // edit category
+    $(document).on('click', ".btn-cat-edit", function() {
+        // get data from cantroller button
+        $("#edit-category-field").val($(this).data('category'));
+        // show offcanvas
+        var myOffcanvas = $("#edit-category")
+        var bsOffcanvas = new bootstrap.Offcanvas(myOffcanvas)
+        bsOffcanvas.show()
+    })
 </script>
 @endsection
