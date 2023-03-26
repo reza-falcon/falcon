@@ -167,6 +167,9 @@ $.fn.z_datatable = function (options) {
                     previous: '&nbsp;',
                     next: '&nbsp;'
                 }
+            },
+            drawCallback: function (settings) {
+                feather.replace();
             }
         });
     }
