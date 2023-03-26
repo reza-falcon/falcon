@@ -60,8 +60,9 @@ Route::middleware(['auth', 'user-access:admin'])->group(function () {
     // category management
     Route::get('/admin/category/all-category', [CategoryController::class, 'index'])->name('admin.category');
     Route::post('/admin/category/new-category/add', [CategoryController::class, 'store'])->name('admin.new-category');
+    Route::post('/admin/category/edit-category/edit', [CategoryController::class, 'store'])->name('admin.edit-category');
     // datatables 
-    Route::get('/admin/datatable/category',[CategoryController::class,'get_all_category'])->name('admin.cateory-all');
+    Route::get('/admin/datatable/category', [CategoryController::class, 'get_all_category'])->name('admin.cateory-all');
 });
 Route::get('/', [\App\Http\Controllers\Shop\HomeController::class, 'index'])->name('shop.home');
 Route::get('/home', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');

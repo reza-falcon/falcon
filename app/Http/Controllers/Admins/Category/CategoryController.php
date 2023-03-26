@@ -62,7 +62,8 @@ class CategoryController extends Controller
             $data[$i]['title'] = $value->title;
             $data[$i]['create_date'] = date('d M Y', strtotime($value->created_at));
             $data[$i]['status'] = $value->status;
-            $data[$i]['action'] = '<button class="btn btn-danger btn-sm">Delete</button>';
+            $data[$i]['action'] = '<button class="btn btn-danger btn-sm" data-catid="' . $value->id . '"><i data-feather="trash"></i>Delete</button> 
+             <button class="btn btn-success btn-sm btn-cat-edit" data-catid="' . $value->id . '" data-category="'.$value->title.'"><i data-feather="edit"></i>Edit</button>';
             $i++;
         }
         // return Response::json($data);
@@ -72,5 +73,9 @@ class CategoryController extends Controller
             'recordsFiltered' => $count,
             'data' => $data,
         ]);
+    }
+
+    public function edit_category($id)
+    {
     }
 }

@@ -52,7 +52,7 @@
         <div class="navbar-header d-xl-block d-none">
             <ul class="nav navbar-nav">
                 <li class="nav-item"><a class="navbar-brand" href="{{asset('html/ltr/horizontal-menu-template-dark/index.html')}}"><span class="brand-logo">
-                            <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
+                            <!-- <svg viewbox="0 0 139 95" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" height="24">
                                 <defs>
                                     <lineargradient id="linearGradient-1" x1="100%" y1="10.5120544%" x2="50%" y2="89.4879456%">
                                         <stop stop-color="#000000" offset="0%"></stop>
@@ -74,7 +74,9 @@
                                         </g>
                                     </g>
                                 </g>
-                            </svg></span>
+                            </svg> -->
+                            <img src="{{asset('assets/images/falcon-shop-logo-removebg-preview.png')}}" height="50px" width="120px" alt="logo">
+                        </span>
                         <h2 class="brand-text mb-0">Vuexy</h2>
                     </a></li>
             </ul>
@@ -285,7 +287,7 @@
                             <span class="user-status"></span>
                             @else
                             <span class="user-name fw-bolder">{{auth()->user()->name}}</span>
-                            <span class="user-status">Admin</span>
+                            <span class="user-status">Buyer</span>
                             @endguest
                         </div>
                         <span class="avatar">
