@@ -52,7 +52,20 @@ class CategoryController extends Controller
 
         // *********************************************************
         $all_categories = Category::select();
-        // filter by date
+        // filter by category title
+        if ($request->title != "") {
+            $all_categories = $all_categories->where('title', 'like', '%' . $request->title . '%');
+        }
+        // filter by date from
+        if ($request->date_from != "" || $request->date_to != "") {
+            $all_categories = $all_categories->whereBetween('created_at', [date('Y-m-d h:i:s', strtotime($request->date_from)), date('Y-m-d h:i:s', strtotime($request->date_to))]);
+        }
+
+        // filter by active / disable status
+        if ($request->status != "") {
+            $all_categories = $all_categories->where('status',$request->status);
+        }
+
         $count = $all_categories->count();
         $all_categories = $all_categories->orderBy($columns[$order_col], $order_dir)->get();
         $data = array();
@@ -63,7 +76,7 @@ class CategoryController extends Controller
             $data[$i]['create_date'] = date('d M Y', strtotime($value->created_at));
             $data[$i]['status'] = $value->status;
             $data[$i]['action'] = '<button class="btn btn-danger btn-sm" data-catid="' . $value->id . '"><i data-feather="trash"></i>Delete</button> 
-             <button class="btn btn-success btn-sm btn-cat-edit" data-catid="' . $value->id . '" data-category="'.$value->title.'"><i data-feather="edit"></i>Edit</button>';
+             <button class="btn btn-success btn-sm btn-cat-edit" data-catid="' . $value->id . '" data-category="' . $value->title . '"><i data-feather="edit"></i>Edit</button>';
             $i++;
         }
         // return Response::json($data);

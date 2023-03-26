@@ -65,37 +65,44 @@
                     </div>
                     <!--Search Form -->
                     <div class="card-body mt-2">
-                        <form class="dt_adv_search" method="POST">
+                        <form class="dt_adv_search" method="POST" action="#">
                             <div class="row g-1 mb-md-1">
+                                <!-- filter by category name -->
                                 <div class="col-md-4">
-                                    <label class="form-label">Name:</label>
-                                    <input type="text" class="form-control dt-input dt-full-name" data-column="1" placeholder="Alaric Beslier" data-column-index="0" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Email:</label>
-                                    <input type="text" class="form-control dt-input" data-column="2" placeholder="demo@example.com" data-column-index="1" />
-                                </div>
-                                <div class="col-md-4">
-                                    <label class="form-label">Post:</label>
-                                    <input type="text" class="form-control dt-input" data-column="3" placeholder="Web designer" data-column-index="2" />
-                                </div>
-                            </div>
-                            <div class="row g-1">
-                                <div class="col-md-4">
-                                    <label class="form-label">City:</label>
-                                    <input type="text" class="form-control dt-input" data-column="4" placeholder="Balky" data-column-index="3" />
+                                    <label class="form-label">Title:</label>
+                                    <input name="title" type="text" class="form-control dt-input dt-full-name" data-column="1" placeholder="Alaric Beslier" data-column-index="0" />
                                 </div>
                                 <div class="col-md-4">
                                     <label class="form-label">Date:</label>
                                     <div class="mb-0">
                                         <input type="text" class="form-control dt-date flatpickr-range dt-input" data-column="5" placeholder="StartDate to EndDate" data-column-index="4" name="dt_date" />
-                                        <input type="hidden" class="form-control dt-date start_date dt-input" data-column="5" data-column-index="4" name="value_from_start_date" />
-                                        <input type="hidden" class="form-control dt-date end_date dt-input" name="value_from_end_date" data-column="5" data-column-index="4" />
+                                        <input type="hidden" class="form-control dt-date start_date dt-input" data-column="5" data-column-index="4" name="date_from" />
+                                        <input type="hidden" class="form-control dt-date end_date dt-input" name="date_to" data-column="5" data-column-index="4" />
                                     </div>
                                 </div>
-                                <div class="col-md-4 input-wrapper">
-                                    <label class="form-label">Salary:</label>
-                                    <input type="text" class="form-control dt-input" data-column="6" placeholder="10000" data-column-index="5" />
+                                <div class="col-md-4">
+                                    <label class="form-label">Status:</label>
+                                    <select name="status" id="status" class="control form-select">
+                                        <option value="">All</option>
+                                        <option selected value="active">Active </option>
+                                        <option value="disable">Disabled</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- button / filter /reset export -->
+                            <div class="row g-1 mt-1">
+
+                                <div class="col-md-8 ms-auto">
+                                    <div class="row">
+                                        <div class="col-md-4 ms-auto">
+                                            <button class="btn btn-secondary w-100 btn-reset" type="button">Reset</button>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <button class="btn btn-success w-100 btn-filter" type="button">Filter</button>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </form>
@@ -153,7 +160,8 @@
         ],
         url: '/admin/datatable/category',
         order_col: 1,
-        order_dir: 'desc'
+        order_dir: 'desc',
+        form_el:".dt_adv_search"
     });
 
     // submit form
@@ -171,7 +179,7 @@
         form_id: "edit-category",
         title: 'Category Update',
         datatable: category_table,
-        reset:false,
+        reset: false,
     });
     // edit category
     $(document).on('click', ".btn-cat-edit", function() {

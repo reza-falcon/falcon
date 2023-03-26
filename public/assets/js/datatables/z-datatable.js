@@ -83,19 +83,35 @@ $.fn.z_datatable = function (options) {
         paginate: false,
         order_col: 0,
         order_dir: 'desc',
+        form_el: '.filter-form',
+        button_filter: '.btn-filter',
+        button_reset: '.btn-reset',
+
     }, options);
     // enble rtl
     var isRtl = $('html').attr('data-textdirection') === 'rtl';
     var $this = this;
-
+    var datatable;
     if (this.length) {
-        return this.DataTable({
-            processing: true,
+        datatable = this.DataTable({
+            "processing": true,
             serverSide: true,
-            ajax: settings.url,
             columns: settings.columns,
-            searchable: false,
+            "searching": false,
+            lengthChange: false,
             order: [[settings.order_col, settings.order_dir]],
+            ajax: {
+                url: settings.url,
+                data: function (d) {
+
+                    $(settings.form_el + ' input, ' + settings.form_el + ' select').each(
+                        function (index, obj) {
+                            let input_name = $(obj).attr('name');
+                            d[input_name] = $(obj).val();
+                        }
+                    );
+                }
+            },
             columnDefs: [
                 {
                     className: 'control',
@@ -129,6 +145,7 @@ $.fn.z_datatable = function (options) {
             ],
             dom: '<"d-flex justify-content-between align-items-center mx-0 row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>t<"d-flex justify-content-between mx-0 row"<"col-sm-12 col-md-6"i><"col-sm-12 col-md-6"p>>',
             orderCellsTop: true,
+
             responsive: {
                 details: {
                     display: $.fn.dataTable.Responsive.display.modal({
@@ -172,6 +189,15 @@ $.fn.z_datatable = function (options) {
                 feather.replace();
             }
         });
+        // click filter button
+        $(document).on('click', settings.button_filter, function () {
+            datatable.draw();
+        })
+        $(document).on("click", settings.button_reset, function () {
+            $(settings.form_el).trigger('reset');
+            datatable.draw();
+        })
+        return datatable;
     }
 }
 // Responsive Table
