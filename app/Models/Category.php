@@ -7,5 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Category extends Model
 {
+
     use HasFactory;
+    public $timestamp = true;
+    protected $fillable = [
+        'title',
+        'status',
+    ];
 }

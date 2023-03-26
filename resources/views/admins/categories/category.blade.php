@@ -68,7 +68,7 @@
                                         <input type="hidden" class="form-control dt-date end_date dt-input" name="value_from_end_date" data-column="5" data-column-index="4" />
                                     </div>
                                 </div>
-                                <div class="col-md-4">
+                                <div class="col-md-4 input-wrapper">
                                     <label class="form-label">Salary:</label>
                                     <input type="text" class="form-control dt-input" data-column="6" placeholder="10000" data-column-index="5" />
                                 </div>
@@ -80,29 +80,20 @@
                             <thead>
                                 <tr>
                                     <th></th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Post</th>
-                                    <th>City</th>
-                                    <th>Date</th>
-                                    <th>Salary</th>
-                                    <th>Age</th>
-                                    <th>Experience</th>
+                                    <th>Title</th>
+                                    <th>Create Date</th>
                                     <th>Status</th>
+                                    <th>Action</th>
+
                                 </tr>
                             </thead>
                             <tfoot>
                                 <tr>
                                     <th></th>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Post</th>
-                                    <th>City</th>
-                                    <th>Date</th>
-                                    <th>Salary</th>
-                                    <th>Age</th>
-                                    <th>Experience</th>
+                                    <th>Title</th>
+                                    <th>Create Date</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -115,19 +106,38 @@
 </div>
 @endsection
 @section('script')
+<script src="{{asset('assets/js/datatables/z-datatable.js')}}"></script>
 <script>
-    // $(document).on('click', "#save-category", function() {
-    //     $("#add-new-category").submit();
-    // })
-    // $("#add-new-category").submit(function(event) {
-    //     alert("Handler for .submit() called.");
-    //     event.preventDefault();
-    // })
+    // fetch data from db
+    var category_table = $('.dt-responsive').z_datatable({
+        columns: [{
+                data: 'responsive_id'
+            },
+            {
+                data: 'title'
+            },
+            {
+                data: 'create_date'
+            },
+            {
+                data: 'status'
+            },
+            {
+                data: 'action'
+            },
+        ],
+        url: '/admin/datatable/category',
+        order_col: 1,
+        order_dir: 'desc'
+    });
+
+    // submit form
     $("#save-category").form_submit({
         file: false,
         datatable: false,
         form_id: "add-new-category",
-        title: 'Category'
+        title: 'Category',
+        datatable: category_table,
     });
 </script>
 @endsection

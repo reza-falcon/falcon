@@ -28,18 +28,49 @@ class CategoryController extends Controller
                 'errors' => $validator->errors(),
             ]);
         }
-        $create =Category::create([
-            'title'=>$request->category,
+        $create = Category::create([
+            'title' => $request->category,
         ]);
         if ($create) {
             return Response::json([
-                'status'=>true,
-                'message'=>'Category successfully added',
+                'status' => true,
+                'message' => 'Category successfully added',
             ]);
         }
         return Response::json([
-            'status'=>false,
-            'message'=>'Somthing went wrong, may be network error',
+            'status' => false,
+            'message' => 'Somthing went wrong, may be network error',
+        ]);
+    }
+    // datatable get all category
+    public function get_all_category(Request $request)
+    {
+
+        $order_col = $_REQUEST['order'][0]['column'];
+        $order_dir = $_REQUEST['order'][0]['dir'];
+        $columns = ['title', 'created_at', 'status', 'status'];
+
+        // *********************************************************
+        $all_categories = Category::select();
+        // filter by date
+        $count = $all_categories->count();
+        $all_categories = $all_categories->orderBy($columns[$order_col], $order_dir)->get();
+        $data = array();
+        $i = 0;
+        foreach ($all_categories as $value) {
+            $data[$i]['responsive_id'] = "";
+            $data[$i]['title'] = $value->title;
+            $data[$i]['create_date'] = date('d M Y', strtotime($value->created_at));
+            $data[$i]['status'] = $value->status;
+            $data[$i]['action'] = '<button class="btn btn-danger btn-sm">Delete</button>';
+            $i++;
+        }
+        // return Response::json($data);
+        return Response::json([
+            'draw' => $request->draw,
+            'recordsTotal' => $count,
+            'recordsFiltered' => $count,
+            'data' => $data,
         ]);
     }
 }
