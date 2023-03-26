@@ -61,6 +61,11 @@
         success: function (data) {
           if (data.status) {
             notify('success', data.message, settings.title);
+            $("#" + settings.form_id).trigger('reset');
+            // check has any datatable
+            if (settings.datatable != false) {
+              settings.datatable.draw();
+            }
           }
           else {
             notify('error', data.message, settings.title);
@@ -84,8 +89,14 @@
     let error_element = '<span class="error">This field is required.</span>';
     this.find('input').each(function (index, obj) {
       let field_name = $(obj).attr('name');
+      // check has input errors
       if (settings.errors.hasOwnProperty(field_name)) {
-        $("input[name='" + field_name + "']").after('<span class="error">' + settings.errors + '</span>');
+        $("input[name='" + field_name + "']").addClass('is-invalid');
+        $("input[name='" + field_name + "']").next('.error').remove();
+        $("input[name='" + field_name + "']").after('<span class="error invalid-feedback">' + settings.errors[field_name][0] + '</span>');
+      } else {
+        $("input[name='" + field_name + "']").removeClass('is-invalid');
+        $("input[name='" + field_name + "']").closest('.input-wrapper').find('.error').remove();
       }
     })
   }
